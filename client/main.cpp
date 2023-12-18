@@ -4,7 +4,7 @@
 #include <cstring>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include "../handleMsg.h"
+#include "handleMsg.h"
 const int PORT = 12345;
 
 int main() {
@@ -41,6 +41,6 @@ int main() {
     sendThread.join();
 
     close(clientSocket);
-
+    
     return 0;
 }

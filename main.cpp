@@ -1,12 +1,13 @@
 #include <iostream>
 #include <thread>
 #include <cstring>
+#include <string>
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <chrono>
 
 const int PORT = 12345;
-const int BUFFER_SIZE = 1024;
+const int BUFFER_SIZE = 400;
 const int MAX_NUM_SOCKET = 2;
 
 void wait(uint64_t time, bool cond = true){
@@ -33,6 +34,8 @@ void receiveMessages(int socket, int* clientsSocket, int*** fields) {
         }
 
         std::cout << "Received: " << buffer << std::endl;
+        if(buffer[0] != '\\')
+            continue;
         for(int i = 0; i < MAX_NUM_SOCKET; i++){
             if(clientsSocket[i] != socket){
                 send(clientsSocket[i], buffer, strlen(buffer), 0);
